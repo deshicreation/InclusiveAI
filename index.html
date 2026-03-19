@@ -21,7 +21,7 @@
 
         header {
             position: relative;
-            height: 60vh;
+            height: 55vh;
             background: url('https://res.cloudinary.com/dpane9slj/image/upload/v1773911961/Gemini_Generated_Image_frfrdxfrfrdxfrfr_js9iru.png') center/cover no-repeat;
             display: flex;
             flex-direction: column;
@@ -31,7 +31,7 @@
             content: "";
             position: absolute;
             inset: 0;
-            background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, var(--dark) 100%);
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 40%, var(--dark) 100%);
             z-index: 1;
         }
 
@@ -43,91 +43,95 @@
             align-items: center;
             padding: 20px 5%;
             z-index: 10;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .logo-section { display: flex; align-items: center; gap: 15px; text-decoration: none; }
-        .logo { width: 50px; height: auto; filter: drop-shadow(0 0 8px var(--neon-blue)); border-radius: 10px; }
+        .logo { width: 45px; height: auto; filter: drop-shadow(0 0 8px var(--neon-blue)); border-radius: 8px; }
 
         .brand-info h1 { font-size: 1.6rem; line-height: 1; color: #fff; font-weight: 800; text-transform: uppercase; }
-        .brand-info p { font-size: 0.75rem; color: var(--neon-blue); font-weight: 500; letter-spacing: 1px; }
+        .brand-info p { font-size: 0.7rem; color: var(--neon-blue); font-weight: 500; letter-spacing: 1px; }
 
         .lang-btn {
             background: transparent;
             border: 2px solid var(--neon-blue);
             color: #fff;
-            padding: 6px 18px;
+            padding: 6px 16px;
             border-radius: 30px;
             cursor: pointer;
-            transition: 0.3s;
             font-weight: 600;
+            transition: 0.3s;
         }
         .lang-btn:hover { background: var(--neon-blue); color: #000; box-shadow: 0 0 15px var(--neon-blue); }
 
         .section-title { 
             text-align: center; 
-            margin: 40px 0; 
-            font-size: 2.5rem; 
+            margin: 40px 0 20px; 
+            font-size: 2.2rem; 
             font-weight: 800;
             background: linear-gradient(to right, #fff, var(--neon-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        /* Search Bar Style */
-        .search-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 50px;
-            padding: 0 5%;
-        }
+        .search-container { display: flex; justify-content: center; margin-bottom: 40px; padding: 0 5%; }
         #toolSearch {
             width: 100%;
             max-width: 600px;
-            padding: 15px 25px;
+            padding: 14px 22px;
             border-radius: 50px;
             border: 1px solid rgba(255,255,255,0.2);
-            background: rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.07);
             color: #fff;
-            font-size: 1rem;
             outline: none;
             backdrop-filter: blur(10px);
             transition: 0.3s;
         }
         #toolSearch:focus { border-color: var(--neon-blue); box-shadow: 0 0 15px rgba(0,242,255,0.2); }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; padding: 0 5% 100px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; padding: 0 5% 100px; }
 
         .card {
-            padding: 30px;
+            padding: 25px;
             border-radius: 25px;
             background: var(--card-bg);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
             transition: 0.4s;
         }
-
-        .card:hover { transform: translateY(-10px); border-color: var(--neon-blue); }
-        .card h3 { margin-bottom: 20px; color: var(--neon-blue); font-size: 1.4rem; display: flex; align-items: center; gap: 10px; }
+        .card:hover { transform: translateY(-8px); border-color: var(--neon-blue); }
+        .card h3 { margin-bottom: 20px; color: var(--neon-blue); font-size: 1.3rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
 
         .tool {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 12px 18px;
+            gap: 15px;
+            padding: 12px 15px;
             margin: 8px 0;
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.04);
             border-radius: 15px;
             text-decoration: none;
             color: #ddd;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             transition: 0.3s;
         }
-        .tool:hover { background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple)); color: #fff; transform: translateX(5px); }
+        .tool:hover { background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple)); color: #fff; transform: translateX(8px); }
 
-        footer { text-align: center; padding: 50px 5%; border-top: 1px solid rgba(255, 255, 255, 0.05); color: #555; font-size: 0.85rem; }
+        /* Tool Icon Style */
+        .ai-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 5px;
+            background: #fff;
+            padding: 2px;
+        }
+
+        .tool-info { flex-grow: 1; display: flex; justify-content: space-between; align-items: center; }
+        .tool-tag { font-size: 0.7rem; opacity: 0.6; text-transform: uppercase; }
+
+        footer { text-align: center; padding: 40px; border-top: 1px solid rgba(255, 255, 255, 0.05); color: #555; }
     </style>
 </head>
 <body>
@@ -149,68 +153,116 @@
     <h2 class="section-title" id="main-title">Explore AI Ecosystem</h2>
 
     <div class="search-container">
-        <input type="text" id="toolSearch" placeholder="Search for AI tools (e.g. ChatGPT, Midjourney...)" onkeyup="filterTools()">
+        <input type="text" id="toolSearch" placeholder="Search for AI tools..." onkeyup="filterTools()">
     </div>
 
     <div class="grid" id="toolGrid">
         <div class="card">
             <h3><i class="fas fa-comment-dots"></i> <span class="cat-title">Chat & Logic</span></h3>
-            <a class="tool" href="https://chat.openai.com" target="_blank">ChatGPT <span>OpenAI</span></a>
-            <a class="tool" href="https://gemini.google.com" target="_blank">Google Gemini <span>Google</span></a>
-            <a class="tool" href="https://claude.ai" target="_blank">Claude AI <span>Anthropic</span></a>
-            <a class="tool" href="https://copilot.microsoft.com" target="_blank">MS Copilot <span>Microsoft</span></a>
-            <a class="tool" href="https://perplexity.ai" target="_blank">Perplexity <span>Search</span></a>
-            <a class="tool" href="https://character.ai" target="_blank">Character.ai <span>Persona</span></a>
-            <a class="tool" href="https://pi.ai" target="_blank">Pi AI <span>Inflection</span></a>
+            <a class="tool" href="https://chat.openai.com" target="_blank">
+                <img class="ai-icon" src="https://www.google.com/s2/favicons?domain=openai.com&sz=64">
+                <div class="tool-info"><span>ChatGPT</span> <span class="tool-tag">OpenAI</span></div>
+            </a>
+            <a class="tool" href="https://gemini.google.com" target="_blank">
+                <img class="ai-icon" src="https://www.google.com/s2/favicons?domain=google.com&sz=64">
+                <div class="tool-info"><span>Google Gemini</span> <span class="tool-tag">Google</span></div>
+            </a>
+            <a class="tool" href="https://claude.ai" target="_blank">
+                <img class="ai-icon" src="https://www.google.com/s2/favicons?domain=anthropic.com&sz=64">
+                <div class="tool-info"><span>Claude AI</span> <span class="tool-tag">Anthropic</span></div>
+            </a>
+            <a class="tool" href="https://copilot.microsoft.com" target="_blank">
+                <img class="ai-icon" src="https://www.google.com/s2/favicons?domain=microsoft.com&sz=64">
+                <div class="tool-info"><span>MS Copilot</span> <span class="tool-tag">Microsoft</span></div>
+            </a>
+            <a class="tool" href="https://perplexity.ai" target="_blank">
+                <img class="ai-icon" src="https://www.google.com/s2/favicons?domain=perplexity.ai&sz=64">
+                <div class="tool-info"><span>Perplexity</span> <span class="tool-tag">Search</span></div>
+            </a>
         </div>
 
         <div class="card">
-            <h3><i class="fas fa-palette"></i> <span class="cat-title">Image & Design</span></h3>
-            <a class="tool" href="https://midjourney.com" target="_blank">Midjourney <span>Art</span></a>
-            <a class="tool" href="https://leonardo.ai" target="_blank">Leonardo AI <span>Assets</span></a>
-            <a class="tool" href="https://ideogram.ai" target="_blank">Ideogram <span>Typography</span></a>
-            <a class="tool" href="https://canva.com" target="_blank">Canva Magic <span>Design</span></a>
-            <a class="tool" href="https://playgroundai.com" target="_blank">Playground <span>Free Art</span></a>
-            <a class="tool" href="https://adobe.com/firefly" target="_blank">Adobe Firefly <span>Pro</span></a>
-            <a class="tool" href="https://artbreeder.com" target="_blank">Artbreeder <span>Mixing</span></a>
+            <h3><i class="fas fa-palette"></i> <span class="cat-title">Visual Arts</span></h3>
+            <a class="tool" href="https://midjourney.com" target="_blank">
+                <img class="ai-icon" src="https://www.google.com/s2/favicons?domain=midjourney.com&sz=64">
+                <div class="tool-info"><span>Midjourney</span> <span class="tool-tag">Art</span></div>
+            </a>
+            <a class="tool" href="https://leonardo.ai" target="_blank">
+                <img class="ai-icon" src="https://www.google.com/s2/favicons?domain=leonardo.ai&sz=64">
+                <div class="tool-info"><span>Leonardo AI</span> <span class="tool-tag">Design</span></div>
+            </a>
+            <a class="tool" href="https://canva.com" target="_blank">
+                <img class="ai-icon" src="https://www.google.com/s2/favicons?domain=canva.com&sz=64">
+                <div class="tool-info"><span>Canva AI</span> <span class="tool-tag">Magic</span></div>
+            </a>
+            <a class="tool" href="https://adobe.com/firefly" target="_blank">
+                <img class="ai-icon" src="https://www.google.com/s2/favicons?domain=adobe.com&sz=64">
+                <div class="tool-info"><span>Adobe Firefly</span> <span class="tool-tag">Pro</span></div>
+            </a>
+            <a class="tool" href="https://ideogram.ai" target="_blank">
+                <img class="ai-icon" src="https://www.google.com/s2/favicons?domain=ideogram.ai&sz=64">
+                <div class="tool-info"><span>Ideogram</span> <span class="tool-tag">Typo</span></div>
+            </a>
         </div>
 
         <div class="card">
             <h3><i class="fas fa-video"></i> <span class="cat-title">Video & Motion</span></h3>
-            <a class="tool" href="https://runwayml.com" target="_blank">Runway Gen-2 <span>Cinematic</span></a>
-            <a class="tool" href="https://pika.art" target="_blank">Pika Labs <span>Animation</span></a>
-            <a class="tool" href="https://sora.com" target="_blank">OpenAI Sora <span>Realistic</span></a>
-            <a class="tool" href="https://heygen.com" target="_blank">HeyGen <span>Avatar</span></a>
-            <a class="tool" href="https://synthesia.io" target="_blank">Synthesia <span>Presentation</span></a>
-            <a class="tool" href="https://kaiber.ai" target="_blank">Kaiber <span>Music Video</span></a>
-        </div>
-
-        <div class="card">
-            <h3><i class="fas fa-music"></i> <span class="cat-title">Audio & Music</span></h3>
-            <a class="tool" href="https://suno.com" target="_blank">Suno AI <span>Song Gen</span></a>
-            <a class="tool" href="https://elevenlabs.io" target="_blank">ElevenLabs <span>Voice</span></a>
-            <a class="tool" href="https://udio.com" target="_blank">Udio <span>Music</span></a>
-            <a class="tool" href="https://murf.ai" target="_blank">Murf AI <span>Voiceover</span></a>
-            <a class="tool" href="https://adobe.com/podcast" target="_blank">Adobe Podcast <span>Clean</span></a>
+            <a class="tool" href="https://runwayml.com" target="_blank">
+                <img class="ai-icon" src="https://www.google.com/s2/favicons?domain=runwayml.com&sz=64">
+                <div class="tool-info"><span>Runway</span> <span class="tool-tag">Cinematic</span></div>
+            </a>
+            <a class="tool" href="https://pika.art" target="_blank">
+                <img class="ai-icon" src="https://www.google.com/s2/favicons?domain=pika.art&sz=64">
+                <div class="tool-info"><span>Pika Labs</span> <span class="tool-tag">Motion</span></div>
+            </a>
+            <a class="tool" href="https://heygen.com" target="_blank">
+                <img class="ai-icon" src="https://www.google.com/s2/favicons?domain=heygen.com&sz=64">
+                <div class="tool-info"><span>HeyGen</span> <span class="tool-tag">Avatar</span></div>
+            </a>
+            <a class="tool" href="https://sora.com" target="_blank">
+                <img class="ai-icon" src="https://www.google.com/s2/favicons?domain=openai.com&sz=64">
+                <div class="tool-info"><span>Sora</span> <span class="tool-tag">OpenAI</span></div>
+            </a>
         </div>
 
         <div class="card">
             <h3><i class="fas fa-code"></i> <span class="cat-title">Coding & Web</span></h3>
-            <a class="tool" href="https://v0.dev" target="_blank">V0.dev <span>UI React</span></a>
-            <a class="tool" href="https://cursor.com" target="_blank">Cursor <span>IDE</span></a>
-            <a class="tool" href="https://replit.com" target="_blank">Replit AI <span>Cloud Dev</span></a>
-            <a class="tool" href="https://github.com/features/copilot" target="_blank">GitHub Copilot <span>Code</span></a>
-            <a class="tool" href="https://blackbox.ai" target="_blank">Blackbox AI <span>Search</span></a>
-            <a class="tool" href="https://codium.ai" target="_blank">CodiumAI <span>Testing</span></a>
+            <a class="tool" href="https://v0.dev" target="_blank">
+                <img class="ai-icon" src="https://www.google.com/s2/favicons?domain=v0.dev&sz=64">
+                <div class="tool-info"><span>V0.dev</span> <span class="tool-tag">UI Gen</span></div>
+            </a>
+            <a class="tool" href="https://cursor.com" target="_blank">
+                <img class="ai-icon" src="https://www.google.com/s2/favicons?domain=cursor.com&sz=64">
+                <div class="tool-info"><span>Cursor</span> <span class="tool-tag">Editor</span></div>
+            </a>
+            <a class="tool" href="https://replit.com" target="_blank">
+                <img class="ai-icon" src="https://www.google.com/s2/favicons?domain=replit.com&sz=64">
+                <div class="tool-info"><span>Replit AI</span> <span class="tool-tag">Cloud</span></div>
+            </a>
+            <a class="tool" href="https://github.com/features/copilot" target="_blank">
+                <img class="ai-icon" src="https://www.google.com/s2/favicons?domain=github.com&sz=64">
+                <div class="tool-info"><span>Github Copilot</span> <span class="tool-tag">Coding</span></div>
+            </a>
         </div>
 
         <div class="card">
-            <h3><i class="fas fa-pen-nib"></i> <span class="cat-title">Writing & Research</span></h3>
-            <a class="tool" href="https://grammarly.com" target="_blank">Grammarly <span>Fix</span></a>
-            <a class="tool" href="https://quillbot.com" target="_blank">Quillbot <span>Paraphrase</span></a>
-            <a class="tool" href="https://jasper.ai" target="_blank">Jasper <span>Marketing</span></a>
-            <a class="tool" href="https://gamma.app" target="_blank">Gamma <span>PPT Gen</span></a>
-            <a class="tool" href="https://notion.so" target="_blank">Notion AI <span>Organize</span></a>
+            <h3><i class="fas fa-pen-nib"></i> <span class="cat-title">Writing & Study</span></h3>
+            <a class="tool" href="https://grammarly.com" target="_blank">
+                <img class="ai-icon" src="https://www.google.com/s2/favicons?domain=grammarly.com&sz=64">
+                <div class="tool-info"><span>Grammarly</span> <span class="tool-tag">Check</span></div>
+            </a>
+            <a class="tool" href="https://quillbot.com" target="_blank">
+                <img class="ai-icon" src="https://www.google.com/s2/favicons?domain=quillbot.com&sz=64">
+                <div class="tool-info"><span>Quillbot</span> <span class="tool-tag">Rewriting</span></div>
+            </a>
+            <a class="tool" href="https://gamma.app" target="_blank">
+                <img class="ai-icon" src="https://www.google.com/s2/favicons?domain=gamma.app&sz=64">
+                <div class="tool-info"><span>Gamma AI</span> <span class="tool-tag">PPT</span></div>
+            </a>
+            <a class="tool" href="https://notion.so" target="_blank">
+                <img class="ai-icon" src="https://www.google.com/s2/favicons?domain=notion.so&sz=64">
+                <div class="tool-info"><span>Notion AI</span> <span class="tool-tag">Note</span></div>
+            </a>
         </div>
     </div>
 
@@ -219,18 +271,13 @@
     </footer>
 
     <script>
-        // Search Function
+        // Search Functionality
         function filterTools() {
             let input = document.getElementById('toolSearch').value.toLowerCase();
             let tools = document.getElementsByClassName('tool');
-            let cards = document.getElementsByClassName('card');
-
             for (let i = 0; i < tools.length; i++) {
-                if (tools[i].innerText.toLowerCase().includes(input)) {
-                    tools[i].style.display = "flex";
-                } else {
-                    tools[i].style.display = "none";
-                }
+                let text = tools[i].innerText.toLowerCase();
+                tools[i].style.display = text.includes(input) ? "flex" : "none";
             }
         }
 
@@ -239,14 +286,14 @@
             en: {
                 brandName: "Inclusive AI Hub", brandTag: "PRECISION & INTELLIGENCE",
                 mainTitle: "Explore AI Ecosystem", btn: "EN | BN",
-                categories: ["Chat & Logic", "Image & Design", "Video & Motion", "Audio & Music", "Coding & Web", "Writing & Research"],
+                categories: ["Chat & Logic", "Visual Arts", "Video & Motion", "Coding & Web", "Writing & Study"],
                 footer: "© 2026 Al Mahamud. All Rights Reserved.",
                 placeholder: "Search for AI tools..."
             },
             bn: {
                 brandName: "ইনক্লুসিভ এআই হাব", brandTag: "নির্ভুলতা এবং বুদ্ধিমত্তা",
                 mainTitle: "এআই ইকোসিস্টেম অন্বেষণ করুন", btn: "BN | EN",
-                categories: ["চ্যাট এবং লজিক", "ইমেজ এবং ডিজাইন", "ভিডিও এবং মোশন", "অডিও এবং মিউজিক", "কোডিং এবং ওয়েব", "রাইটিং এবং রিসার্চ"],
+                categories: ["চ্যাট এবং লজিক", "ভিজ্যুয়াল আর্টস", "ভিডিও এবং মোশন", "কোডিং এবং ওয়েব", "রাইটিং এবং স্টাডি"],
                 footer: "© ২০২৬ আল মাহামুদ। সর্বস্বত্ব সংরক্ষিত।",
                 placeholder: "এআই টুলস খুঁজুন..."
             }
@@ -266,13 +313,13 @@
             catTitles.forEach((el, index) => el.innerText = data.categories[index]);
         }
 
-        // Particles
+        // Particle System
         const canvas=document.getElementById('particles');
         const ctx=canvas.getContext('2d');
         function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight}
         resize(); window.addEventListener("resize",resize);
         let p=[];
-        for(let i=0;i<80;i++){p.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*1.5,dx:(Math.random()-0.5)*0.5,dy:(Math.random()-0.5)*0.5})}
+        for(let i=0;i<70;i++){p.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*1.2,dx:(Math.random()-0.5)*0.6,dy:(Math.random()-0.5)*0.6})}
         function draw(){
             ctx.clearRect(0,0,canvas.width,canvas.height);
             p.forEach(a=>{
