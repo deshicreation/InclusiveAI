@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InclusiveAI | Al Mahamud</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --neon-blue: #00f2ff;
+            --neon-purple: #bc13fe;
+            --dark: #030712;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; }
+        
+        body { background: var(--dark); color: #fff; overflow-x: hidden; }
+
+        canvas { position: fixed; top: 0; left: 0; z-index: -1; }
+
+        /* HEADER & TOP BAR */
+        header {
+            position: relative;
+            height: 50vh; /* উচ্চতা কিছুটা কমানো হয়েছে যেহেতু লেখা উপরে চলে গেছে */
+            background: url('https://res.cloudinary.com/dpane9slj/image/upload/v1773911961/Gemini_Generated_Image_frfrdxfrfrdxfrfr_js9iru.png') center/cover no-repeat;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        header::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(3, 7, 18, 1) 100%);
+            z-index: 1;
+        }
+
+        .top-bar {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            z-index: 10;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 50px; /* লোগো সাইজ কিছুটা ছোট করা হয়েছে টেক্সটের সাথে মিলানোর জন্য */
+            height: auto;
+        }
+
+        .brand-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-info h1 {
+            font-size: 1.8rem;
+            line-height: 1;
+            background: linear-gradient(to right, #fff, var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .brand-info p {
+            font-size: 0.8rem;
+            color: #aaa;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        .lang-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: 0.3s;
+        }
+
+        .lang-btn:hover { background: var(--neon-blue); color: #000; border-color: var(--neon-blue); }
+
+        /* GRID SYSTEM */
+        .section-title { text-align: center; margin: 60px 0 30px; font-size: 2.2rem; font-weight: 700; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 0 5% 100px;
+        }
+
+        .card {
+            padding: 30px;
+            border-radius: 24px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            transition: .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-blue);
+            box-shadow: 0 15px 35px rgba(0,242,255,0.1);
+        }
+
+        .card h3 { margin-bottom: 20px; color: var(--neon-blue); font-size: 1.4rem; border-left: 3px solid var(--neon-purple); padding-left: 10px; }
+
+        .tool {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            margin: 8px 0;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            text-decoration: none;
+            color: #ccc;
+            font-size: 0.95rem;
+            transition: 0.3s;
+        }
+
+        .tool:hover { background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple)); color: #fff; padding-left: 20px; }
+
+        footer { text-align: center; padding: 50px; border-top: 1px solid rgba(255,255,255,0.05); color: #666; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <canvas id="particles"></canvas>
+
+    <header>
+        <div class="top-bar">
+            <div class="logo-section">
+                <img src="https://res.cloudinary.com/dpane9slj/image/upload/v1773912050/Gemini_Generated_Image_ihypxhihypxhihyp_2_ke8omu.png" class="logo">
+                <div class="brand-info">
+                    <h1>Inclusive AI Hub</h1>
+                    <p>All AI tools in one place</p>
+                </div>
+            </div>
+            <button class="lang-btn">EN | BN</button>
+        </div>
+    </header>
+
+    <h2 class="section-title">AI Tools Ecosystem</h2>
+
+    <div class="grid">
+        <div class="card">
+            <h3>Chatbots</h3>
+            <a class="tool" href="https://chat.openai.com" target="_blank">ChatGPT <i class="fas fa-external-link-alt" style="font-size: 10px;"></i></a>
+            <a class="tool" href="https://gemini.google.com" target="_blank">Gemini <i class="fas fa-external-link-alt" style="font-size: 10px;"></i></a>
+            <a class="tool" href="https://claude.ai" target="_blank">Claude <i class="fas fa-external-link-alt" style="font-size: 10px;"></i></a>
+            <a class="tool" href="https://copilot.microsoft.com" target="_blank">Copilot <i class="fas fa-external-link-alt" style="font-size: 10px;"></i></a>
+        </div>
+
+        <div class="card">
+            <h3>Image & Art</h3>
+            <a class="tool" href="https://midjourney.com" target="_blank">Midjourney <i class="fas fa-external-link-alt" style="font-size: 10px;"></i></a>
+            <a class="tool" href="https://leonardo.ai" target="_blank">Leonardo AI <i class="fas fa-external-link-alt" style="font-size: 10px;"></i></a>
+            <a class="tool" href="https://ideogram.ai" target="_blank">Ideogram <i class="fas fa-external-link-alt" style="font-size: 10px;"></i></a>
+            <a class="tool" href="https://playgroundai.com" target="_blank">Playground <i class="fas fa-external-link-alt" style="font-size: 10px;"></i></a>
+        </div>
+
+        <div class="card">
+            <h3>Video & Audio</h3>
+            <a class="tool" href="https://runwayml.com" target="_blank">Runway <i class="fas fa-external-link-alt" style="font-size: 10px;"></i></a>
+            <a class="tool" href="https://pika.art" target="_blank">Pika <i class="fas fa-external-link-alt" style="font-size: 10px;"></i></a>
+            <a class="tool" href="https://suno.com" target="_blank">Suno AI <i class="fas fa-external-link-alt" style="font-size: 10px;"></i></a>
+            <a class="tool" href="https://elevenlabs.io" target="_blank">ElevenLabs <i class="fas fa-external-link-alt" style="font-size: 10px;"></i></a>
+        </div>
+
+        <div class="card">
+            <h3>Developer Tools</h3>
+            <a class="tool" href="https://v0.dev" target="_blank">V0.dev <i class="fas fa-external-link-alt" style="font-size: 10px;"></i></a>
+            <a class="tool" href="https://cursor.com" target="_blank">Cursor <i class="fas fa-external-link-alt" style="font-size: 10px;"></i></a>
+            <a class="tool" href="https://replit.com" target="_blank">Replit AI <i class="fas fa-external-link-alt" style="font-size: 10px;"></i></a>
+            <a class="tool" href="https://github.com/features/copilot" target="_blank">Copilot <i class="fas fa-external-link-alt" style="font-size: 10px;"></i></a>
+        </div>
+
+        <div class="card">
+            <h3>Productivity</h3>
+            <a class="tool" href="https://notion.so" target="_blank">Notion AI <i class="fas fa-external-link-alt" style="font-size: 10px;"></i></a>
+            <a class="tool" href="https://canva.com" target="_blank">Canva AI <i class="fas fa-external-link-alt" style="font-size: 10px;"></i></a>
+            <a class="tool" href="https://gamma.app" target="_blank">Gamma App <i class="fas fa-external-link-alt" style="font-size: 10px;"></i></a>
+            <a class="tool" href="https://tome.app" target="_blank">Tome <i class="fas fa-external-link-alt" style="font-size: 10px;"></i></a>
+        </div>
+
+        <div class="card">
+            <h3>Other AI</h3>
+            <a class="tool" href="https://perplexity.ai" target="_blank">Perplexity <i class="fas fa-external-link-alt" style="font-size: 10px;"></i></a>
+            <a class="tool" href="https://character.ai" target="_blank">Character AI <i class="fas fa-external-link-alt" style="font-size: 10px;"></i></a>
+            <a class="tool" href="https://janitorai.com" target="_blank">Janitor AI <i class="fas fa-external-link-alt" style="font-size: 10px;"></i></a>
+            <a class="tool" href="https://huggingface.co" target="_blank">HuggingFace <i class="fas fa-external-link-alt" style="font-size: 10px;"></i></a>
+        </div>
+    </div>
+
+    <footer>
+        © 2026 Al Mahamud. All Rights Reserved.
+    </footer>
+
+    <script>
+        const canvas=document.getElementById('particles');
+        const ctx=canvas.getContext('2d');
+        function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight}
+        resize();window.addEventListener("resize",resize);
+        let p=[];
+        for(let i=0;i<120;i++){p.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2+1,dx:(Math.random()-0.5)*1,dy:(Math.random()-0.5)*1})}
+        function draw(){
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            p.forEach(a=>{
+                ctx.beginPath();ctx.arc(a.x,a.y,a.r,0,Math.PI*2);ctx.fillStyle="rgba(0,242,255,0.4)";ctx.fill();
+                a.x+=a.dx;a.y+=a.dy;
+                if(a.x<0||a.x>canvas.width)a.dx*=-1;
+                if(a.y<0||a.y>canvas.height)a.dy*=-1;
+                p.forEach(b=>{
+                    let d=Math.hypot(a.x-b.x,a.y-b.y);
+                    if(d<100){ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.strokeStyle="rgba(0,242,255,0.05)";ctx.stroke();}
+                })
+            });
+            requestAnimationFrame(draw);
+        }
+        draw();
+    </script>
+</body>
+</html>
