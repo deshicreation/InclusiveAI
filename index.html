@@ -16,253 +16,255 @@
             --card-bg: rgba(255, 255, 255, 0.03);
             --header-overlay: linear-gradient(to bottom, rgba(0,0,0,0) 40%, #030712 100%);
             --tool-bg: rgba(255, 255, 255, 0.04);
-            --grid-color: rgba(0, 242, 255, 0.1);
         }
 
-        body.light-mode {
-            --bg: #f8fafc;
-            --text: #0f172a;
-            --card-bg: rgba(255, 255, 255, 0.85);
-            --header-overlay: linear-gradient(to bottom, rgba(255,255,255,0) 40%, #f8fafc 100%);
-            --tool-bg: #f1f5f9;
-            --grid-color: rgba(0, 100, 255, 0.05);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; }
         
-        body { background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.6; }
+        body { background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.6; min-height: 100vh; }
 
-        /* --- Lighting & Moving Animations --- */
+        /* --- Digital Rain & Glow Effects --- */
         .bg-grid {
-            position: fixed; top: 0; left: 0; width: 100%; height: 200%;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
             z-index: -2; pointer-events: none;
-            background: 
-                linear-gradient(var(--grid-color) 1px, transparent 1px) 0 0 / 40px 40px,
-                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px) 0 0 / 40px 40px;
-            animation: moveGrid 30s linear infinite;
+            background: #030712;
+            overflow: hidden;
         }
 
-        @keyframes moveGrid {
-            from { transform: translateY(0); }
-            to { transform: translateY(-40px); }
+        .bg-grid::before {
+            content: '';
+            position: absolute;
+            width: 100%; height: 200%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 242, 255, 0.12) 0px,
+                rgba(0, 242, 255, 0.12) 2px,
+                transparent 2px,
+                transparent 4px
+            );
+            animation: binaryRain 4s linear infinite;
         }
 
-        .light-effect {
-            position: fixed; width: 50vw; height: 50vw;
-            background: radial-gradient(circle, rgba(0, 242, 255, 0.08) 0%, transparent 70%);
-            z-index: -1; border-radius: 50%; filter: blur(80px);
-            animation: floatLight 20s infinite alternate;
+        @keyframes binaryRain {
+            0% { transform: translateY(-50%); }
+            100% { transform: translateY(0%); }
         }
 
-        @keyframes floatLight {
-            0% { transform: translate(-10%, -10%); }
+        .light-glow {
+            position: fixed; width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(0, 242, 255, 0.15) 0%, transparent 70%);
+            z-index: -1; border-radius: 50%; filter: blur(100px);
+            animation: floatGlow 15s infinite alternate ease-in-out;
+        }
+
+        @keyframes floatGlow {
+            0% { transform: translate(-15%, -15%); }
             100% { transform: translate(60%, 40%); }
         }
 
-        canvas { position: fixed; top: 0; left: 0; z-index: -1; pointer-events: none; }
-
+        /* --- Header & Navigation --- */
         header {
-            position: relative; height: 58vh;
+            position: relative; height: 50vh;
             background: url('https://res.cloudinary.com/dpane9slj/image/upload/v1773911961/Gemini_Generated_Image_frfrdxfrfrdxfrfr_js9iru.png') center/cover no-repeat;
             display: flex; flex-direction: column;
-        }
-
-        body.light-mode header {
-            background: url('https://res.cloudinary.com/dpane9slj/image/upload/v1773926763/Gemini_Generated_Image_fvn30zfvn30zfvn3_oi9hrt.png') center/cover no-repeat;
         }
 
         header::after { content: ""; position: absolute; inset: 0; background: var(--header-overlay); z-index: 1; }
 
         .top-bar {
             position: relative; width: 100%; display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 5%; z-index: 10; background: rgba(0, 0, 0, 0.45); backdrop-filter: blur(25px); border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px 5%; z-index: 10; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(25px); border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .logo-section { display: flex; align-items: center; gap: 15px; text-decoration: none; }
-        .logo { width: 48px; filter: drop-shadow(0 0 10px var(--neon-blue)); }
-        .brand-info h1 { font-size: 1.7rem; color: #fff; font-weight: 800; letter-spacing: -1px; }
-
-        .nav-actions { display: flex; align-items: center; gap: 12px; }
-        .btn-action {
-            background: transparent; border: 2px solid var(--neon-blue); color: #fff;
-            padding: 9px 20px; border-radius: 30px; cursor: pointer; font-weight: 600; font-size: 0.9rem;
+        .logo-section { display: flex; align-items: center; gap: 20px; text-decoration: none; }
+        .logo { 
+            width: 80px; 
+            height: auto;
+            border-radius: 12px;
+            filter: drop-shadow(0 0 15px var(--neon-blue));
+            transition: 0.4s;
         }
-        .btn-action:hover { background: var(--neon-blue); color: #000; box-shadow: 0 0 25px var(--neon-blue); transform: scale(1.05); }
 
-        .section-title { text-align: center; margin: 50px 0 25px; font-size: 2.8rem; font-weight: 800; background: linear-gradient(to right, var(--neon-blue), var(--neon-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .brand-info h1 { 
+            font-size: 2.2rem; 
+            color: #fff; 
+            font-weight: 800; 
+            letter-spacing: -1px;
+            line-height: 1;
+        }
+
+        /* --- Search & Grid --- */
+        .section-title { text-align: center; margin: 60px 0 30px; font-size: 3rem; font-weight: 800; background: linear-gradient(to right, var(--neon-blue), var(--neon-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         .search-container { display: flex; justify-content: center; margin-bottom: 50px; padding: 0 5%; }
         #toolSearch {
-            width: 100%; max-width: 650px; padding: 20px 35px; border-radius: 60px;
+            width: 100%; max-width: 700px; padding: 20px 35px; border-radius: 60px;
             border: 1px solid rgba(128,128,128,0.3); background: var(--card-bg); color: var(--text); outline: none;
-            backdrop-filter: blur(15px); box-shadow: 0 15px 35px rgba(0,0,0,0.15); font-size: 1.1rem;
+            backdrop-filter: blur(15px); font-size: 1.1rem;
         }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 30px; padding: 0 5% 100px; }
-        .card { padding: 35px; border-radius: 35px; background: var(--card-bg); border: 1px solid rgba(128,128,128,0.15); backdrop-filter: blur(20px); position: relative; overflow: hidden; }
-        .card:hover { transform: translateY(-12px); border-color: var(--neon-blue); box-shadow: 0 25px 50px rgba(0,242,255,0.2); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 35px; padding: 0 5% 100px; }
+        .card { 
+            padding: 35px; border-radius: 35px; background: var(--card-bg); 
+            border: 1px solid rgba(128,128,128,0.15); backdrop-filter: blur(20px); 
+            transition: 0.4s ease;
+        }
+        .card:hover { transform: translateY(-15px); border-color: var(--neon-blue); box-shadow: 0 30px 60px rgba(0,242,255,0.15); }
         
-        .card h3 { margin-bottom: 25px; color: var(--neon-blue); font-size: 1.5rem; display: flex; align-items: center; gap: 12px; }
+        .card h3 { margin-bottom: 25px; color: var(--neon-blue); font-size: 1.6rem; display: flex; align-items: center; gap: 15px; border-bottom: 1px solid rgba(0,242,255,0.2); padding-bottom: 10px;}
 
         .tool {
-            display: flex; align-items: center; gap: 14px; padding: 14px 20px; margin: 12px 0;
-            background: var(--tool-bg); border-radius: 18px; text-decoration: none; color: var(--text); font-size: 1rem;
+            display: flex; align-items: center; gap: 15px; padding: 12px 18px; margin: 8px 0;
+            background: var(--tool-bg); border-radius: 15px; text-decoration: none; color: var(--text); transition: 0.3s; font-size: 0.95rem;
         }
-        .tool:hover { background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple)); color: #fff; transform: translateX(10px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .ai-icon { width: 28px; height: 28px; border-radius: 8px; background: #fff; padding: 4px; }
-        .tool-info { flex-grow: 1; display: flex; justify-content: space-between; align-items: center; }
-        .tool-tag { font-size: 0.75rem; opacity: 0.8; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .tool:hover { background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple)); color: #fff; transform: translateX(8px); }
+        .ai-icon { width: 24px; height: 24px; border-radius: 6px; background: #fff; padding: 2px; }
 
-        footer { text-align: center; padding: 80px 20px; color: #888; border-top: 1px solid rgba(128,128,128,0.1); font-weight: 500; }
+        footer { text-align: center; padding: 80px; color: #888; border-top: 1px solid rgba(128,128,128,0.1); }
     </style>
 </head>
-<body class="dark-mode" id="main-body">
+<body>
     
     <div class="bg-grid"></div>
-    <div class="light-effect" style="top: -10%; left: -5%;"></div>
-    <div class="light-effect" style="bottom: 0; right: -5%; animation-delay: -7s; background: radial-gradient(circle, rgba(188,19,254,0.08) 0%, transparent 70%);"></div>
-    <canvas id="particles"></canvas>
+    <div class="light-glow"></div>
+    <div class="light-glow" style="bottom: 0; right: 0; animation-delay: -5s; background: radial-gradient(circle, rgba(188,19,254,0.1) 0%, transparent 70%);"></div>
 
     <header>
         <nav class="top-bar">
             <a href="#" class="logo-section">
-                <img src="https://raw.githubusercontent.com/deshicreation/InclusiveAI/main/Inclusive%20AI%20Logo.png" class="logo">
+                <img src="https://res.cloudinary.com/dpane9slj/image/upload/v1773912050/Gemini_Generated_Image_ihypxhihypxhihyp_2_ke8omu.png" class="logo" alt="Inclusive AI Logo">
                 <div class="brand-info">
                     <h1>Inclusive AI</h1>
                 </div>
             </a>
-            <div class="nav-actions">
-                <button class="btn-action" onclick="toggleTheme()" id="theme-btn"><i class="fas fa-moon"></i></button>
-                <button class="btn-action" onclick="toggleLanguage()" id="lang-toggle">EN | BN</button>
-            </div>
         </nav>
     </header>
 
-    <h2 class="section-title" id="main-title">AI Tool Ecosystem</h2>
+    <h2 class="section-title">AI Tool Ecosystem</h2>
     
     <div class="search-container">
         <input type="text" id="toolSearch" placeholder="Search 70+ Premium AI tools..." onkeyup="filterTools()">
     </div>
 
     <div class="grid" id="toolGrid">
-        <div class="card">
-            <h3><i class="fas fa-brain"></i> <span class="cat-title">Chat & Logic</span></h3>
-            <a class="tool" href="https://chat.openai.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=openai.com&sz=64"><div class="tool-info"><span>ChatGPT</span><span class="tool-tag">OpenAI</span></div></a>
-            <a class="tool" href="https://gemini.google.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=google.com&sz=64"><div class="tool-info"><span>Gemini</span><span class="tool-tag">Google</span></div></a>
-            <a class="tool" href="https://claude.ai" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=anthropic.com&sz=64"><div class="tool-info"><span>Claude 3</span><span class="tool-tag">Anthropic</span></div></a>
-            <a class="tool" href="https://perplexity.ai" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=perplexity.ai&sz=64"><div class="tool-info"><span>Perplexity</span><span class="tool-tag">Search</span></div></a>
-            <a class="tool" href="https://copilot.microsoft.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=microsoft.com&sz=64"><div class="tool-info"><span>MS Copilot</span><span class="tool-tag">Microsoft</span></div></a>
-            <a class="tool" href="https://pi.ai" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=pi.ai&sz=64"><div class="tool-info"><span>Pi AI</span><span class="tool-tag">Talk</span></div></a>
-        </div>
-
-        <div class="card">
-            <h3><i class="fas fa-image"></i> <span class="cat-title">Visual Arts</span></h3>
-            <a class="tool" href="https://midjourney.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=midjourney.com&sz=64"><div class="tool-info"><span>Midjourney</span><span class="tool-tag">Elite Art</span></div></a>
-            <a class="tool" href="https://leonardo.ai" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=leonardo.ai&sz=64"><div class="tool-info"><span>Leonardo AI</span><span class="tool-tag">Asset</span></div></a>
-            <a class="tool" href="https://ideogram.ai" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=ideogram.ai&sz=64"><div class="tool-info"><span>Ideogram</span><span class="tool-tag">Type</span></div></a>
-            <a class="tool" href="https://adobe.com/firefly" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=adobe.com&sz=64"><div class="tool-info"><span>Firefly</span><span class="tool-tag">Adobe</span></div></a>
-            <a class="tool" href="https://canva.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=canva.com&sz=64"><div class="tool-info"><span>Canva AI</span><span class="tool-tag">Design</span></div></a>
-            <a class="tool" href="https://lexica.art" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=lexica.art&sz=64"><div class="tool-info"><span>Lexica</span><span class="tool-tag">Search</span></div></a>
-        </div>
-
-        <div class="card">
-            <h3><i class="fas fa-play-circle"></i> <span class="cat-title">Video & Motion</span></h3>
-            <a class="tool" href="https://runwayml.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=runwayml.com&sz=64"><div class="tool-info"><span>Runway Gen-3</span><span class="tool-tag">Film</span></div></a>
-            <a class="tool" href="https://pika.art" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=pika.art&sz=64"><div class="tool-info"><span>Pika Labs</span><span class="tool-tag">Motion</span></div></a>
-            <a class="tool" href="https://heygen.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=heygen.com&sz=64"><div class="tool-info"><span>HeyGen</span><span class="tool-tag">Avatar</span></div></a>
-            <a class="tool" href="https://synthesia.io" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=synthesia.io&sz=64"><div class="tool-info"><span>Synthesia</span><span class="tool-tag">AI Human</span></div></a>
-            <a class="tool" href="https://kaiber.ai" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=kaiber.ai&sz=64"><div class="tool-info"><span>Kaiber</span><span class="tool-tag">Creative</span></div></a>
-        </div>
-
-        <div class="card">
-            <h3><i class="fas fa-volume-up"></i> <span class="cat-title">Audio & Music</span></h3>
-            <a class="tool" href="https://suno.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=suno.com&sz=64"><div class="tool-info"><span>Suno AI</span><span class="tool-tag">Song</span></div></a>
-            <a class="tool" href="https://elevenlabs.io" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=elevenlabs.io&sz=64"><div class="tool-info"><span>ElevenLabs</span><span class="tool-tag">Voice</span></div></a>
-            <a class="tool" href="https://udio.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=udio.com&sz=64"><div class="tool-info"><span>Udio</span><span class="tool-tag">Lyrics</span></div></a>
-            <a class="tool" href="https://murf.ai" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=murf.ai&sz=64"><div class="tool-info"><span>Murf AI</span><span class="tool-tag">Studio</span></div></a>
-        </div>
-
-        <div class="card">
-            <h3><i class="fas fa-code"></i> <span class="cat-title">Coding & Web</span></h3>
-            <a class="tool" href="https://cursor.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=cursor.com&sz=64"><div class="tool-info"><span>Cursor</span><span class="tool-tag">IDE</span></div></a>
-            <a class="tool" href="https://v0.dev" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=v0.dev&sz=64"><div class="tool-info"><span>v0.dev</span><span class="tool-tag">React</span></div></a>
-            <a class="tool" href="https://replit.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=replit.com&sz=64"><div class="tool-info"><span>Replit AI</span><span class="tool-tag">Deploy</span></div></a>
-            <a class="tool" href="https://blackbox.ai" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=blackbox.ai&sz=64"><div class="tool-info"><span>Blackbox</span><span class="tool-tag">Code</span></div></a>
-        </div>
-
-        <div class="card">
-            <h3><i class="fas fa-file-alt"></i> <span class="cat-title">Writing & SEO</span></h3>
-            <a class="tool" href="https://grammarly.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=grammarly.com&sz=64"><div class="tool-info"><span>Grammarly</span><span class="tool-tag">Check</span></div></a>
-            <a class="tool" href="https://quillbot.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=quillbot.com&sz=64"><div class="tool-info"><span>Quillbot</span><span class="tool-tag">Paraphrase</span></div></a>
-            <a class="tool" href="https://jasper.ai" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=jasper.ai&sz=64"><div class="tool-info"><span>Jasper</span><span class="tool-tag">Ads</span></div></a>
-            <a class="tool" href="https://surferseo.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=surferseo.com&sz=64"><div class="tool-info"><span>Surfer SEO</span><span class="tool-tag">Rank</span></div></a>
-        </div>
         
         <div class="card">
-            <h3><i class="fas fa-tasks"></i> <span class="cat-title">Productivity</span></h3>
-            <a class="tool" href="https://gamma.app" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=gamma.app&sz=64"><div class="tool-info"><span>Gamma AI</span><span class="tool-tag">Presentation</span></div></a>
-            <a class="tool" href="https://notion.so" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=notion.so&sz=64"><div class="tool-info"><span>Notion AI</span><span class="tool-tag">Work</span></div></a>
-            <a class="tool" href="https://tome.app" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=tome.app&sz=64"><div class="tool-info"><span>Tome</span><span class="tool-tag">Story</span></div></a>
+            <h3><i class="fas fa-comment-dots"></i> Chat & Logic</h3>
+            <a class="tool" href="https://chat.openai.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=openai.com"><span>ChatGPT</span></a>
+            <a class="tool" href="https://gemini.google.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=google.com"><span>Google Gemini</span></a>
+            <a class="tool" href="https://claude.ai" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=anthropic.com"><span>Claude 3.5</span></a>
+            <a class="tool" href="https://perplexity.ai" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=perplexity.ai"><span>Perplexity AI</span></a>
+            <a class="tool" href="https://pi.ai" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=pi.ai"><span>Pi AI</span></a>
+            <a class="tool" href="https://mistral.ai" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=mistral.ai"><span>Mistral AI</span></a>
+            <a class="tool" href="https://character.ai" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=character.ai"><span>Character AI</span></a>
+            <a class="tool" href="https://poe.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=poe.com"><span>Poe by Quora</span></a>
+            <a class="tool" href="https://deepseek.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=deepseek.com"><span>DeepSeek</span></a>
         </div>
-        
+
         <div class="card">
-            <h3><i class="fas fa-wand-magic-sparkles"></i> <span class="cat-title">Editing & Magic</span></h3>
-            <a class="tool" href="https://remove.bg" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=remove.bg&sz=64"><div class="tool-info"><span>Remove.bg</span><span class="tool-tag">BG Fix</span></div></a>
-            <a class="tool" href="https://photoroom.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=photoroom.com&sz=64"><div class="tool-info"><span>PhotoRoom</span><span class="tool-tag">Object</span></div></a>
-            <a class="tool" href="https://cleanup.pictures" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=cleanup.pictures&sz=64"><div class="tool-info"><span>Cleanup</span><span class="tool-tag">Retouch</span></div></a>
+            <h3><i class="fas fa-image"></i> Image Creation</h3>
+            <a class="tool" href="https://midjourney.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=midjourney.com"><span>Midjourney</span></a>
+            <a class="tool" href="https://leonardo.ai" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=leonardo.ai"><span>Leonardo AI</span></a>
+            <a class="tool" href="https://ideogram.ai" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=ideogram.ai"><span>Ideogram 2.0</span></a>
+            <a class="tool" href="https://adobe.com/firefly" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=adobe.com"><span>Adobe Firefly</span></a>
+            <a class="tool" href="https://canva.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=canva.com"><span>Canva Magic Art</span></a>
+            <a class="tool" href="https://lexica.art" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=lexica.art"><span>Lexica Art</span></a>
+            <a class="tool" href="https://playgroundai.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=playgroundai.com"><span>Playground AI</span></a>
+            <a class="tool" href="https://seaart.ai" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=seaart.ai"><span>SeaArt AI</span></a>
+            <a class="tool" href="https://getimg.ai" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=getimg.ai"><span>GetImg.ai</span></a>
+            <a class="tool" href="https://dream.ai" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=dream.ai"><span>Wombo Dream</span></a>
         </div>
+
+        <div class="card">
+            <h3><i class="fas fa-video"></i> Video & Motion</h3>
+            <a class="tool" href="https://runwayml.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=runwayml.com"><span>Runway Gen-3</span></a>
+            <a class="tool" href="https://luma-ai.com/dream-machine" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=lumalabs.ai"><span>Luma Dream Machine</span></a>
+            <a class="tool" href="https://pika.art" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=pika.art"><span>Pika Labs</span></a>
+            <a class="tool" href="https://heygen.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=heygen.com"><span>HeyGen Avatars</span></a>
+            <a class="tool" href="https://synthesia.io" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=synthesia.io"><span>Synthesia</span></a>
+            <a class="tool" href="https://kaiber.ai" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=kaiber.ai"><span>Kaiber AI</span></a>
+            <a class="tool" href="https://invideo.io" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=invideo.io"><span>InVideo AI</span></a>
+            <a class="tool" href="https://pictory.ai" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=pictory.ai"><span>Pictory</span></a>
+            <a class="tool" href="https://sora.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=openai.com"><span>OpenAI Sora</span></a>
+        </div>
+
+        <div class="card">
+            <h3><i class="fas fa-music"></i> Audio & Voice</h3>
+            <a class="tool" href="https://elevenlabs.io" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=elevenlabs.io"><span>ElevenLabs</span></a>
+            <a class="tool" href="https://suno.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=suno.com"><span>Suno Music</span></a>
+            <a class="tool" href="https://udio.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=udio.com"><span>Udio AI</span></a>
+            <a class="tool" href="https://murf.ai" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=murf.ai"><span>Murf AI</span></a>
+            <a class="tool" href="https://mubert.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=mubert.com"><span>Mubert</span></a>
+            <a class="tool" href="https://voicify.ai" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=voicify.ai"><span>Voicify (Jammable)</span></a>
+            <a class="tool" href="https://lalal.ai" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=lalal.ai"><span>Lalal.ai</span></a>
+            <a class="tool" href="https://audiocraft.metademolab.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=meta.com"><span>Meta AudioCraft</span></a>
+        </div>
+
+        <div class="card">
+            <h3><i class="fas fa-code"></i> Developer Tools</h3>
+            <a class="tool" href="https://cursor.sh" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=cursor.com"><span>Cursor Editor</span></a>
+            <a class="tool" href="https://v0.dev" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=v0.dev"><span>v0.dev (Vercel)</span></a>
+            <a class="tool" href="https://github.com/features/copilot" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=github.com"><span>GitHub Copilot</span></a>
+            <a class="tool" href="https://replit.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=replit.com"><span>Replit Ghostwriter</span></a>
+            <a class="tool" href="https://blackbox.ai" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=blackbox.ai"><span>Blackbox AI</span></a>
+            <a class="tool" href="https://framer.com/ai" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=framer.com"><span>Framer AI</span></a>
+            <a class="tool" href="https://10web.io" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=10web.io"><span>10Web Builder</span></a>
+            <a class="tool" href="https://tabnine.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=tabnine.com"><span>Tabnine</span></a>
+        </div>
+
+        <div class="card">
+            <h3><i class="fas fa-pen-fancy"></i> Writing & Work</h3>
+            <a class="tool" href="https://grammarly.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=grammarly.com"><span>Grammarly</span></a>
+            <a class="tool" href="https://quillbot.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=quillbot.com"><span>Quillbot</span></a>
+            <a class="tool" href="https://jasper.ai" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=jasper.ai"><span>Jasper AI</span></a>
+            <a class="tool" href="https://copy.ai" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=copy.ai"><span>Copy.ai</span></a>
+            <a class="tool" href="https://notion.so" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=notion.so"><span>Notion AI</span></a>
+            <a class="tool" href="https://gamma.app" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=gamma.app"><span>Gamma App</span></a>
+            <a class="tool" href="https://tome.app" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=tome.app"><span>Tome AI</span></a>
+            <a class="tool" href="https://writesonic.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=writesonic.com"><span>Writesonic</span></a>
+            <a class="tool" href="https://otter.ai" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=otter.ai"><span>Otter.ai</span></a>
+        </div>
+
+        <div class="card">
+            <h3><i class="fas fa-magic"></i> Magic & Editing</h3>
+            <a class="tool" href="https://remove.bg" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=remove.bg"><span>Remove.bg</span></a>
+            <a class="tool" href="https://photoroom.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=photoroom.com"><span>PhotoRoom</span></a>
+            <a class="tool" href="https://cleanup.pictures" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=cleanup.pictures"><span>Cleanup.pictures</span></a>
+            <a class="tool" href="https://vanceai.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=vanceai.com"><span>VanceAI Upscaler</span></a>
+            <a class="tool" href="https://magnific.ai" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=magnific.ai"><span>Magnific AI</span></a>
+            <a class="tool" href="https://picsart.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=picsart.com"><span>Picsart AI</span></a>
+            <a class="tool" href="https://cutout.pro" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=cutout.pro"><span>Cutout.pro</span></a>
+            <a class="tool" href="https://krea.ai" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=krea.ai"><span>Krea AI</span></a>
+        </div>
+
+        <div class="card">
+            <h3><i class="fas fa-star"></i> Specialized AI</h3>
+            <a class="tool" href="https://tavus.io" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=tavus.io"><span>Tavus (Cloning)</span></a>
+            <a class="tool" href="https://d-id.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=d-id.com"><span>D-ID (Talking Face)</span></a>
+            <a class="tool" href="https://futuretools.io" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=futuretools.io"><span>FutureTools</span></a>
+            <a class="tool" href="https://theresanaiforthat.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=theresanaiforthat.com"><span>TAAFT</span></a>
+            <a class="tool" href="https://huggingface.co" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=huggingface.co"><span>Hugging Face</span></a>
+            <a class="tool" href="https://replicate.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=replicate.com"><span>Replicate</span></a>
+            <a class="tool" href="https://civitai.com" target="_blank"><img class="ai-icon" src="https://www.google.com/s2/favicons?domain=civitai.com"><span>Civitai (Models)</span></a>
+        </div>
+
     </div>
 
-    <footer id="footer-text">© 2026 Al Mahamud. All Rights Reserved.</footer>
+    <footer>© 2026 Al Mahamud. All Rights Reserved.</footer>
 
     <script>
-        // Theme Logic
-        function toggleTheme() {
-            const body = document.getElementById('main-body');
-            const btn = document.getElementById('theme-btn');
-            if (body.classList.contains('dark-mode')) {
-                body.classList.replace('dark-mode', 'light-mode');
-                btn.innerHTML = '<i class="fas fa-sun"></i>';
-            } else {
-                body.classList.replace('light-mode', 'dark-mode');
-                btn.innerHTML = '<i class="fas fa-moon"></i>';
-            }
-        }
-
-        // Language Config
-        const translations = {
-            en: { title: "AI Tool Ecosystem", btn: "EN | BN", categories: ["Chat & Logic", "Visual Arts", "Video & Motion", "Audio & Music", "Coding & Web", "Writing & SEO", "Productivity", "Editing & Magic"] },
-            bn: { title: "এআই টুল ইকোসিস্টেম", btn: "BN | EN", categories: ["চ্যাট এবং লজিক", "ভিজ্যুয়াল আর্টস", "ভিডিও এবং মোশন", "অডিও এবং মিউজিক", "কোডিং এবং ওয়েব", "রাইটিং এবং এসইও", "প্রোডাক্টিভিটি", "এডিটিং এবং ম্যাজিক"] }
-        };
-
-        let currentLang = 'en';
-        function toggleLanguage() {
-            currentLang = currentLang === 'en' ? 'bn' : 'en';
-            document.getElementById('main-title').innerText = translations[currentLang].title;
-            document.getElementById('lang-toggle').innerText = translations[currentLang].btn;
-            document.querySelectorAll('.cat-title').forEach((el, i) => el.innerText = translations[currentLang].categories[i]);
-        }
-
-        // Search Filter
         function filterTools() {
             let val = document.getElementById('toolSearch').value.toLowerCase();
-            document.querySelectorAll('.tool').forEach(t => t.style.display = t.innerText.toLowerCase().includes(val) ? "flex" : "none");
-        }
-
-        // --- Particle Background ---
-        const canvas=document.getElementById('particles'); const ctx=canvas.getContext('2d');
-        function res(){canvas.width=window.innerWidth;canvas.height=window.innerHeight}
-        res(); window.onresize=res;
-        let p=[]; for(let i=0;i<70;i++)p.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,dx:(Math.random()-0.5)*1,dy:(Math.random()-0.5)*1,r:Math.random()*1.5});
-        function d(){
-            ctx.clearRect(0,0,canvas.width,canvas.height);
-            p.forEach(a=>{
-                ctx.beginPath(); ctx.arc(a.x,a.y,a.r,0,Math.PI*2); ctx.fillStyle="rgba(0,242,255,0.25)"; ctx.fill();
-                a.x+=a.dx; a.y+=a.dy; if(a.x<0||a.x>canvas.width)a.dx*=-1; if(a.y<0||a.y>canvas.height)a.dy*=-1;
+            document.querySelectorAll('.tool').forEach(t => {
+                t.style.display = t.innerText.toLowerCase().includes(val) ? "flex" : "none";
             });
-            requestAnimationFrame(d);
+            
+            // Hide cards if no tools are visible
+            document.querySelectorAll('.card').forEach(card => {
+                const hasVisibleTools = Array.from(card.querySelectorAll('.tool')).some(t => t.style.display !== 'none');
+                card.style.display = hasVisibleTools ? 'block' : 'none';
+            });
         }
-        d();
     </script>
 </body>
 </html>
